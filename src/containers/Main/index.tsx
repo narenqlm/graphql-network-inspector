@@ -25,7 +25,7 @@ export const Main = () => {
                 transformed.push({operationName, time: item.time, status: item.status})
             }
         })
-        saveTemplateAsFile("graphql_request_log", transformed)
+        saveTemplateAsFile("graphql_request_log.json", transformed)
     }
     const saveTemplateAsFile = (filename: string, dataObjToWrite: any) => {
         const blob = new Blob([JSON.stringify(dataObjToWrite)], {type: "text/json"});
