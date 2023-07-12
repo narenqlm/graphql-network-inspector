@@ -6,6 +6,7 @@ import { useSearch } from "../../hooks/useSearch"
 import { Textfield } from "@/components/Textfield"
 import { OverflowPopover } from "../../components/OverflowPopover"
 import { Bar } from "../../components/Bar"
+import {MockIcon} from "@/components/Icons/MockIcon";
 
 interface IToolbarProps {
   filterValue: string
@@ -17,6 +18,7 @@ interface IToolbarProps {
   regexActive: boolean
   onRegexActiveChange: (regexActive: boolean) => void
   onClear: () => void
+    onDownload?: () => void
 }
 
 export const Toolbar = (props: IToolbarProps) => {
@@ -30,6 +32,7 @@ export const Toolbar = (props: IToolbarProps) => {
     regexActive,
     onRegexActiveChange,
     onClear,
+      onDownload
   } = props
   const { setIsSearchOpen } = useSearch()
 
@@ -82,6 +85,15 @@ export const Toolbar = (props: IToolbarProps) => {
           >
             Search
           </Button>,
+            <Button
+                icon={<MockIcon />}
+                onClick={() => {if (onDownload) onDownload()}}
+                testId="download-button"
+                variant="ghost"
+                className="text-gray-500 dark:text-gray-400 -ml-2"
+            >
+                Download
+            </Button>,
         ]}
       />
     </Bar>

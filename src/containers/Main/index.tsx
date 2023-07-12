@@ -15,6 +15,29 @@ export const Main = () => {
   const { isSearchOpen } = useSearch()
   const { setActiveTab } = useNetworkTabs()
 
+    const onDownload = () => {
+      const transformed: any = []
+        networkRequests.forEach((item)=>transformed.push({operationName: item.request.primaryOperation.operationName, time: item.time, status: item.status}))
+        saveTemplateAsFile("test", transformed)
+    }
+    const saveTemplateAsFile = (filename: string, dataObjToWrite: any) => {
+        const blob = new Blob([JSON.stringify(dataObjToWrite)], { type: "text/json" });
+        const link = document.createElement("a");
+
+        link.download = filename;
+        link.href = window.URL.createObjectURL(blob);
+        link.dataset.downloadurl = ["text/json", link.download, link.href].join(":");
+
+        const evt = new MouseEvent("click", {
+            view: window,
+            bubbles: true,
+            cancelable: true,
+        });
+
+        link.dispatchEvent(evt);
+        link.remove()
+    };
+
   return (
     <>
       <SplitPaneLayout
@@ -35,6 +58,7 @@ export const Main = () => {
             clearWebRequests={clearWebRequests}
             selectedRowId={selectedRowId}
             setSelectedRowId={setSelectedRowId}
+            onDownload={onDownload}
           />
         }
       />

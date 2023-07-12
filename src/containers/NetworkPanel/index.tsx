@@ -13,6 +13,7 @@ interface NetworkPanelProps {
   setSelectedRowId: (selectedRowId: string | number | null) => void
   networkRequests: NetworkRequest[]
   clearWebRequests: () => void
+  onDownload?: () => void
 }
 
 export type QuickFilters = {
@@ -63,7 +64,7 @@ const filterNetworkRequests = (
 }
 
 export const NetworkPanel = (props: NetworkPanelProps) => {
-  const { networkRequests, clearWebRequests, selectedRowId, setSelectedRowId } =
+  const { networkRequests, clearWebRequests, selectedRowId, setSelectedRowId, onDownload } =
     props
 
   const [filterValue, setFilterValue] = useState("")
@@ -115,6 +116,7 @@ export const NetworkPanel = (props: NetworkPanelProps) => {
           onInvertedChange={setIsInverted}
           regexActive={isRegexActive}
           onRegexActiveChange={onIsRegexActiveChange}
+          onDownload={onDownload}
           onClear={() => {
             setSelectedRowId(null)
             clearWebRequests()
