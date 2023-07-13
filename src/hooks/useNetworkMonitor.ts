@@ -53,7 +53,7 @@ export const useNetworkMonitor = (): [NetworkRequest[], () => void] => {
           id: requestId,
           status: details.response.status,
           url: details.request.url,
-          time: details.time === -1 || !details.time ? 0 : details.time,
+          time: details.time === -1 || !details.time ? 0 : details.timings.wait,
           method: details.request.method,
           request: {
             primaryOperation,
